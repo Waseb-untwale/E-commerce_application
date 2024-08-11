@@ -2,7 +2,7 @@ const Users = require("../models/userModel");
 const bcrypt = require("bcrypt");
 var jwt = require("jsonwebtoken");
 const userCtrl = {
-  register: async (req, res) => {
+    register: async (req, res) => {
     try {
       const { name, email, password } = req.body;
       const user = await Users.findOne({ email });
@@ -28,11 +28,13 @@ const userCtrl = {
         httpOnly: true,
         path: "/user/refresh_token",
       });
-      res.json({ accesstoken });
+      res.json({ accesstoken,refreshtoken });
     } catch (err) {
       return res.status(500).json({ msg: err.message });
     }
   },
+  
+  
   refreshtoken: async (req, res) => {
     try {
       const rf_token = req.cookies.refreshtoken;
